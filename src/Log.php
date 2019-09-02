@@ -5,6 +5,7 @@ namespace fize\log;
 
 /**
  * 日志类
+ * @package fize\log
  */
 class Log
 {

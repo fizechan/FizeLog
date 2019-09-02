@@ -7,6 +7,7 @@ use fize\io\File as Fso;
 
 /**
  * 文件形式日志类
+ * @package fize\log\handler
  */
 class File implements LogHandler
 {

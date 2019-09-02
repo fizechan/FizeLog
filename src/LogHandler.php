@@ -5,6 +5,7 @@ namespace fize\log;
 
 /**
  * 日志处理接口定义
+ * @package fize\log
  */
 interface LogHandler
 {
