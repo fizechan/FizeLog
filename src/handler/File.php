@@ -45,7 +45,8 @@ class File implements LogHandler
         }
         $content = date("Y-m-d H:i:s", time()) . " [" . $type . "]:" . $str . "\n";
 
-        $fso = new Fso($file, 'a');
+        $fso = new Fso($file);
+        $fso->open('a');
         $rst = $fso->write($content);
         $fso->close();
         return $rst === false ? false : true;

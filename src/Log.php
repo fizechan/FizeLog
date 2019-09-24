@@ -23,25 +23,28 @@ class Log
     }
 
     /**
-     * 初始化
-     * @param string $handler 处理句柄方式
+     * 取得单例
+     * @param string $driver 使用的实际接口名称
      * @param array $options 配置项
+     * @return LogHandler
      */
-    public static function init($handler, array $options = [])
+    public static function getInstance($driver, array $options = [])
     {
-        $class = 'fize\\log\\handler\\' . ucfirst($handler);
-        self::$handler = new $class($options);
+        if (empty(self::$handler)) {
+            self::$handler = self::getNew($driver, $options);
+        }
+        return self::$handler;
     }
 
     /**
-     * 写入日志
-     * @param string $str 要写入的日志主体内容
-     * @param string $type 日志类型，
-     * @param array $options 传入的其他参数
-     * @return bool
+     * 新建实例
+     * @param string $driver 使用的实际接口名称
+     * @param array $options 配置项
+     * @return LogHandler
      */
-    public static function write($str, $type = "INF", array $options = [])
+    public static function getNew($driver, array $options = [])
     {
-        return self::$handler->write($str, $type, $options);
+        $class = '\\' . __NAMESPACE__ . '\\handler\\' . $driver;
+        return new $class($options);
     }
 }
