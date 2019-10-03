@@ -1,6 +1,6 @@
 {
     "name": "fize/log",
-    "description": "An easy to extend logging library. produced by FizeChan.",
+    "description": "An easy to extend logging library.",
     "license": "Apache-2.0",
     "authors": [
         {
