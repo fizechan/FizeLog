@@ -13,40 +13,46 @@ class File implements LogHandler
 {
 
     /**
-     * 当前日志存储路径
-     * @var string
+     * @var array 配置
      */
-    private $_path = "./data/log";
+    protected $config;
 
     /**
      * 构造函数
-     * @param array $options,支持参数[path]
+     * @param array $config 支持参数[path]
      */
-    public function __construct(array $options = [])
+    public function __construct(array $config = [])
     {
-        if (isset($options['path'])) {
-            $this->_path = $options['path'];
-        }
+        $default_config = [
+            'path'     => './data/log',
+            'file'     => date('Ymd') . '.log',
+            'max_size' => 2 * 1024 * 1024
+        ];
+
+        $config = array_merge($default_config, $config);
+        $this->config = $config;
     }
 
     /**
      * 写入日志
      * @param string $str 要写入的日志主体内容
      * @param string $type 日志类型，
-     * @param array $options 传入的其他参数,支持参数[path]
+     * @param array $config 传入的其他参数,支持参数[path、file、max_size]
      * @return bool
      */
-    public function write($str, $type = "INF", array $options = [])
+    public function write($str, $type = "INF", array $config = [])
     {
-        if (isset($options['path'])){
-            $file = $options['path'];
-        }else{
-            $file = $this->_path . "/" . date('Ymd') . '.log';
+        $config = array_merge($this->config, $config);
+        $file = $config['path'] . '/' . $config['file'];
+        $fso = new Fso($file, 'a');
+        if($fso->getSize() >= $config['max_size']) {
+            $fso->copy($config['path'], $config['file'] . '.' . time() . '.log', true);
+            $fso->putContents('');
+            $fso->clearstatcache();
         }
-        $content = date("Y-m-d H:i:s", time()) . " [" . $type . "]:" . $str . "\n";
 
-        $fso = new Fso($file);
-        $fso->open('a');
+        $content = date("Y-m-d H:i:s") . " [" . $type . "]:" . $str . "\n";
+        $fso->open();
         $rst = $fso->write($content);
         $fso->close();
         return $rst === false ? false : true;

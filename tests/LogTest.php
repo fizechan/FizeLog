@@ -33,7 +33,7 @@ class LogTest extends TestCase
         $rst2 = $this->log->write('cfz2', 'ERR');
         self::assertTrue($rst2);
 
-        $rst3 = $this->log->write('cfz3', 'BUG', ['path' => './data/debug/bug.log']);
+        $rst3 = $this->log->write('cfz3', 'BUG', ['path' => './data/debug', 'file' => 'bug.log']);
         self::assertTrue($rst3);
 	}
 }
