@@ -6,7 +6,6 @@ use fize\log\LogHandler;
 
 /**
  * 系统形式日志类
- * @package fize\log\handler
  */
 class SysLog implements LogHandler
 {
