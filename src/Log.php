@@ -39,17 +39,13 @@ class Log
     protected static $log;
 
     /**
-     * @var LogHandler
-     */
-    private static $handler;
-
-    /**
-     * 在构造方法中设置静态属性
+     * 常规调用请先初始化
+     * @param string $handler 使用的实际接口名称
      * @param array $config 配置项
      */
-    public function __construct(array $config)
+    public function __construct($handler, array $config = [])
     {
-        self::$log = self::getInstance($config['handler'], $config['config']);
+        self::$log = self::getInstance($handler, $config);
     }
 
     /**
@@ -63,7 +59,9 @@ class Log
     }
 
     /**
-     * 必须立即采取行动。例如: 整个网站宕机了，数据库挂了，等等。 这应该发送短信通知警告你.
+     * 必须立即采取行动。
+     *
+     * 例如: 整个网站宕机了，数据库挂了，等等。 这应该发送短信通知警告你.
      * @param string $message 日志内容
      * @param array $context 上下文配置
      */
@@ -73,7 +71,9 @@ class Log
     }
 
     /**
-     * 临界条件。例如: 应用组件不可用，意外的异常。
+     * 临界条件。
+     *
+     * 例如: 应用组件不可用，意外的异常。
      * @param string $message 日志内容
      * @param array $context 上下文配置
      */
@@ -93,7 +93,9 @@ class Log
     }
 
     /**
-     * 例外事件不是错误。例如: 使用过时的API，API使用不当，不合理的东西不一定是错误。
+     * 例外事件不是错误。
+     *
+     * 例如: 使用过时的API，API使用不当，不合理的东西不一定是错误。
      * @param string $message 日志内容
      * @param array $context 上下文配置
      */
@@ -145,26 +147,12 @@ class Log
     }
 
     /**
-     * 取得单例
-     * @param string $handler 使用的实际接口名称
-     * @param array $config 配置项
-     * @return LogHandler
-     */
-    public static function getInstance($handler, array $config = [])
-    {
-        if (empty(self::$handler)) {
-            self::$handler = self::getNew($handler, $config);
-        }
-        return self::$handler;
-    }
-
-    /**
      * 新建实例
      * @param string $handler 使用的实际接口名称
      * @param array $config 配置项
      * @return LogHandler
      */
-    public static function getNew($handler, array $config = [])
+    public static function getInstance($handler, array $config = [])
     {
         $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler;
         return new $class($config);

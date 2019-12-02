@@ -4,7 +4,7 @@
 namespace fize\log;
 
 /**
- * 日志处理接口定义
+ * 日志接口
  */
 interface LogHandler
 {

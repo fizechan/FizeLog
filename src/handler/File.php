@@ -6,6 +6,8 @@ use fize\log\LogHandler;
 use fize\io\File as Fso;
 
 /**
+ * 文件形式
+ *
  * 文件形式日志类
  */
 class File implements LogHandler
@@ -18,7 +20,7 @@ class File implements LogHandler
 
     /**
      * 构造函数
-     * @param array $config 支持参数[path]
+     * @param array $config 参数
      */
     public function __construct(array $config = [])
     {
@@ -36,15 +38,15 @@ class File implements LogHandler
      * 写入日志
      * @param string $str 要写入的日志主体内容
      * @param string $type 日志类型，
-     * @param array $config 传入的其他参数,支持参数[path、file、max_size]
+     * @param array $config 传入的其他参数
      * @return bool
      */
     public function write($str, $type = "INF", array $config = [])
     {
         $config = array_merge($this->config, $config);
         $file = $config['path'] . '/' . $config['file'];
-        $fso = new Fso($file, 'a');
-        if($fso->getSize() >= $config['max_size']) {
+        $fso = new Fso($file, 'a+');
+        if($fso->size() >= $config['max_size']) {
             $fso->copy($config['path'], $config['file'] . '.' . time() . '.log', true);
             $fso->putContents('');
             $fso->clearstatcache();
