@@ -2,7 +2,8 @@
 
 namespace fize\log\handler;
 
-use fize\log\LogHandler;
+use fize\log\AbstractLog;
+use Psr\Log\InvalidArgumentException;
 use fize\io\File as Fso;
 
 /**
@@ -10,7 +11,7 @@ use fize\io\File as Fso;
  *
  * 文件形式日志类
  */
-class File implements LogHandler
+class File extends AbstractLog
 {
 
     /**
@@ -35,27 +36,29 @@ class File implements LogHandler
     }
 
     /**
-     * 写入日志
-     * @param string $str 要写入的日志主体内容
-     * @param string $type 日志类型，
-     * @param array $config 传入的其他参数
-     * @return bool
+     * 可任意级别记录日志
+     * @param string $level 日志级别
+     * @param string $message 日志内容
+     * @param array $context 占位符内容
      */
-    public function write($str, $type = "INF", array $config = [])
+    public function log($level, $message, array $context = [])
     {
-        $config = array_merge($this->config, $config);
+        if (!self::validLogLevel($level)) {
+            throw new InvalidArgumentException();
+        }
+
+        $config = $this->config;
         $file = $config['path'] . '/' . $config['file'];
         $fso = new Fso($file, 'a+');
-        if($fso->size() >= $config['max_size']) {
+        if ($fso->size() >= $config['max_size']) {
             $fso->copy($config['path'], $config['file'] . '.' . time() . '.log', true);
             $fso->putContents('');
             $fso->clearstatcache();
         }
 
-        $content = date("Y-m-d H:i:s") . " [" . $type . "]:" . $str . "\n";
+        $content = "[" . date("Y-m-d H:i:s") . "] [" . str_pad($level, 9) . "] " . self::interpolate($message, $context) . "\n";
         $fso->open();
-        $rst = $fso->write($content);
+        $fso->write($content);
         $fso->close();
-        return $rst === false ? false : true;
     }
 }

@@ -2,14 +2,15 @@
 
 namespace fize\log\handler;
 
-use fize\log\LogHandler;
+use fize\log\AbstractLog;
+use Psr\Log\InvalidArgumentException;
 
 /**
  * 系统日志
  *
  * 系统日志形式日志类
  */
-class SysLog implements LogHandler
+class SysLog extends AbstractLog
 {
     /**
      * @var array 配置
@@ -43,20 +44,38 @@ class SysLog implements LogHandler
     }
 
     /**
-     * 写入日志
-     *
-     * 参数 `$config` :
-     *   支持参数[priority]
-     * @param string $str 要写入的日志主体内容
-     * @param string $type 日志类型，
-     * @param array $config 传入的其他参数
-     * @return bool
+     * 根据日志等级返回 syslog 使用的等级常量
+     * @param string $level 日志等级
+     * @return int
      */
-    public function write($str, $type = "INF", array $config = [])
+    protected static function getPriority($level)
     {
-        $config['priority'] = isset($config['priority']) ? $config['priority'] : LOG_INFO;
-        $config = array_merge($this->config, $config);
-        $content = "[" . $type . "]:" . $str;
-        return syslog($config['priority'], $content);
+        $prioritys = [
+            'emergency' => LOG_EMERG,
+            'alert'     => LOG_ALERT,
+            'critical'  => LOG_CRIT,
+            'error'     => LOG_ERR,
+            'warning'   => LOG_WARNING,
+            'notice'    => LOG_NOTICE,
+            'info'      => LOG_INFO,
+            'debug'     => LOG_DEBUG,
+        ];
+        return $prioritys[$level];
+    }
+
+    /**
+     * 可任意级别记录日志
+     * @param string $level 日志级别
+     * @param string $message 日志内容
+     * @param array $context 占位符内容
+     */
+    public function log($level, $message, array $context = [])
+    {
+        if (!self::validLogLevel($level)) {
+            throw new InvalidArgumentException();
+        }
+
+        $content = self::interpolate($message, $context);
+        syslog(self::getPriority($level), $content);
     }
 }
