@@ -8,12 +8,14 @@
             "email": "chenfengzhan@qq.com"
         }
     ],
+    "minimum-stability": "alpha",
     "require": {
 		"php": ">=5.4.0",
         "psr/log": "~1.1"
 	},
     "require-dev": {
         "fize/io": "~3.3",
+        "fize/doc": "~0.1",
         "phpunit/phpunit": "^8.0.0"
     },
     "suggest": {
