@@ -2,15 +2,15 @@
 
 namespace fize\log\handler;
 
-use fize\log\AbstractLog;
 use Psr\Log\InvalidArgumentException;
+use fize\log\LogAbstract;
 
 /**
  * 系统日志
  *
  * 系统日志形式日志类
  */
-class SysLog extends AbstractLog
+class SysLog extends LogAbstract
 {
     /**
      * @var array 配置

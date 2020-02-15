@@ -2,8 +2,8 @@
 
 namespace fize\log\handler;
 
-use fize\log\AbstractLog;
 use Psr\Log\InvalidArgumentException;
+use fize\log\LogAbstract;
 use fize\io\File as Fso;
 
 /**
@@ -11,7 +11,7 @@ use fize\io\File as Fso;
  *
  * 文件形式日志类
  */
-class File extends AbstractLog
+class File extends LogAbstract
 {
 
     /**

@@ -3,10 +3,8 @@
 
 namespace fize\log;
 
-
-use Psr\Log\AbstractLogger;
 use ReflectionClass;
-use ReflectionClassConstant;
+use Psr\Log\AbstractLogger;
 
 
 /**
@@ -14,7 +12,7 @@ use ReflectionClassConstant;
  *
  * 提供了实际实现类需要的方法
  */
-abstract class AbstractLog extends AbstractLogger implements LogHandler
+abstract class LogAbstract extends AbstractLogger implements LogHandler
 {
 
     /**
@@ -28,9 +26,6 @@ abstract class AbstractLog extends AbstractLogger implements LogHandler
         $found = false;
         $constants = $class->getReflectionConstants();
         foreach ($constants as $constant) {
-            /**
-             * @var ReflectionClassConstant $constant
-             */
             if($constant->getValue() == $level) {
                 $found = true;
                 break;
