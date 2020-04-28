@@ -1,6 +1,5 @@
 <?php
 
-
 namespace fize\log;
 
 use Psr\Log\LoggerInterface;

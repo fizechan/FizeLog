@@ -1,14 +1,12 @@
 <?php
 
-namespace app\controller;
-
 use PHPUnit\Framework\TestCase;
 use fize\log\Log;
 use fize\log\LogHandler;
 use Psr\Log\LogLevel;
 
 
-class LogTest extends TestCase
+class TestLog extends TestCase
 {
 
     public function __construct($name = null, array $data = [], $dataName = '')

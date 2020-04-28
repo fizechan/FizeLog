@@ -65,9 +65,9 @@ class SysLog extends LogAbstract
 
     /**
      * 可任意级别记录日志
-     * @param string $level 日志级别
+     * @param string $level   日志级别
      * @param string $message 日志内容
-     * @param array $context 占位符内容
+     * @param array  $context 占位符内容
      */
     public function log($level, $message, array $context = [])
     {
