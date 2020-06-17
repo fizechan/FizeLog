@@ -22,7 +22,7 @@ class File extends LogAbstract
     /**
      * @var array 待写入日志
      */
-    protected $logs;
+    protected $logs = [];
 
     /**
      * 构造函数
