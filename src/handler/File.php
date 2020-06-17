@@ -20,6 +20,11 @@ class File extends LogAbstract
     protected $config;
 
     /**
+     * @var array 待写入日志
+     */
+    protected $logs;
+
+    /**
      * 构造函数
      * @param array $config 参数
      */
@@ -36,6 +41,16 @@ class File extends LogAbstract
     }
 
     /**
+     * 析构
+     *
+     * 析构时一次性写入所有日志
+     */
+    public function __destruct()
+    {
+        $this->writeToFile();
+    }
+
+    /**
      * 可任意级别记录日志
      * @param string $level   日志级别
      * @param string $message 日志内容
@@ -47,6 +62,18 @@ class File extends LogAbstract
             throw new InvalidArgumentException();
         }
 
+        $this->logs[] = [
+            'level'   => $level,
+            'message' => $message,
+            'context' => $context
+        ];
+    }
+
+    /**
+     * 将日志写入到文件
+     */
+    protected function writeToFile()
+    {
         $config = $this->config;
         $file = $config['path'] . '/' . $config['file'];
         $fso = new Fso($file, 'a+');
@@ -55,8 +82,10 @@ class File extends LogAbstract
             $fso->putContents('');
             $fso->clearstatcache();
         }
-
-        $content = "[" . date("Y-m-d H:i:s") . "] [" . str_pad($level, 9) . "] " . self::interpolate($message, $context) . "\n";
+        $content = '';
+        foreach ($this->logs as $log) {
+            $content .= "[" . date("Y-m-d H:i:s") . "] [" . str_pad($log['level'], 9) . "] " . self::interpolate($log['message'], $log['context']) . "\n";
+        }
         $fso->open();
         $fso->write($content);
         $fso->close();
