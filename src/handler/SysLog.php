@@ -2,8 +2,8 @@
 
 namespace fize\log\handler;
 
-use Psr\Log\InvalidArgumentException;
 use fize\log\LogAbstract;
+use Psr\Log\InvalidArgumentException;
 
 /**
  * 系统日志
@@ -48,7 +48,7 @@ class SysLog extends LogAbstract
      * @param string $level 日志等级
      * @return int
      */
-    protected static function getPriority($level)
+    protected static function getPriority(string $level): int
     {
         $prioritys = [
             'emergency' => LOG_EMERG,

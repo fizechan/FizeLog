@@ -1,10 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use fize\log\Log;
-use fize\log\LogHandler;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
-
 
 class TestLog extends TestCase
 {
@@ -19,12 +17,6 @@ class TestLog extends TestCase
     {
         new Log('File');
         self::assertTrue(true);
-    }
-
-    public function testGetInstance()
-    {
-        $loger = Log::getInstance('File');
-        self::assertInstanceOf(LogHandler::class, $loger);
     }
 
     public function testEmergency()

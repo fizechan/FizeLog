@@ -2,9 +2,9 @@
 
 namespace fize\log\handler;
 
-use Psr\Log\InvalidArgumentException;
-use fize\io\File as Fso;
+use fize\io\File as FizeFile;
 use fize\log\LogAbstract;
+use Psr\Log\InvalidArgumentException;
 
 /**
  * 文件形式
@@ -76,18 +76,16 @@ class File extends LogAbstract
     {
         $config = $this->config;
         $file = $config['path'] . '/' . $config['file'];
-        $fso = new Fso($file, 'a+');
-        if ($fso->size() >= $config['max_size']) {
-            $fso->copy($config['path'], $config['file'] . '.' . time() . '.log', true);
-            $fso->putContents('');
-            $fso->clearstatcache();
+        $FizeFile = new FizeFile($file, 'a+');
+        if ($FizeFile->getSize() >= $config['max_size']) {
+            $FizeFile->copy($config['path'], $config['file'] . '.' . time() . '.log', true);
+            $FizeFile->putContents('');
+            $FizeFile->clearstatcache();
         }
         $content = '';
         foreach ($this->logs as $log) {
             $content .= "[" . date("Y-m-d H:i:s") . "] [" . str_pad($log['level'], 9) . "] " . self::interpolate($log['message'], $log['context']) . "\n";
         }
-        $fso->open();
-        $fso->write($content);
-        $fso->close();
+        $FizeFile->fwrite($content);
     }
 }

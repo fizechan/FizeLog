@@ -22,7 +22,7 @@ class Log
      * @param string $handler 使用的实际接口名称
      * @param array  $config  配置项
      */
-    public function __construct($handler, array $config = [])
+    public function __construct(string $handler, array $config = [])
     {
         self::$loger = LogFactory::create($handler, $config);
     }
@@ -32,7 +32,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function emergency($message, array $context = [])
+    public static function emergency(string $message, array $context = [])
     {
         self::log(LogLevel::EMERGENCY, $message, $context);
     }
@@ -44,7 +44,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function alert($message, array $context = [])
+    public static function alert(string $message, array $context = [])
     {
         self::log(LogLevel::ALERT, $message, $context);
     }
@@ -56,7 +56,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function critical($message, array $context = [])
+    public static function critical(string $message, array $context = [])
     {
         self::log(LogLevel::CRITICAL, $message, $context);
     }
@@ -68,7 +68,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function error($message, array $context = [])
+    public static function error(string $message, array $context = [])
     {
         self::log(LogLevel::ERROR, $message, $context);
     }
@@ -80,7 +80,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function warning($message, array $context = [])
+    public static function warning(string $message, array $context = [])
     {
         self::log(LogLevel::WARNING, $message, $context);
     }
@@ -90,7 +90,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function notice($message, array $context = [])
+    public static function notice(string $message, array $context = [])
     {
         self::log(LogLevel::NOTICE, $message, $context);
     }
@@ -102,7 +102,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function info($message, array $context = [])
+    public static function info(string $message, array $context = [])
     {
         self::log(LogLevel::INFO, $message, $context);
     }
@@ -112,7 +112,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function debug($message, array $context = [])
+    public static function debug(string $message, array $context = [])
     {
         self::log(LogLevel::DEBUG, $message, $context);
     }
@@ -123,7 +123,7 @@ class Log
      * @param string $message 日志内容
      * @param array  $context 占位符内容
      */
-    public static function log($level, $message, array $context = [])
+    public static function log(string $level, string $message, array $context = [])
     {
         self::$loger->log($level, $message, $context);
     }

@@ -2,7 +2,6 @@
 
 namespace handler;
 
-use fize\log\handler\File;
 use fize\log\handler\SysLog;
 use fize\log\LogHandler;
 use PHPUnit\Framework\TestCase;

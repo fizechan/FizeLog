@@ -2,8 +2,9 @@
 
 namespace fize\log;
 
-use ReflectionClass;
 use Psr\Log\AbstractLogger;
+use Psr\Log\LogLevel;
+use ReflectionClass;
 
 /**
  * 日志抽象类
@@ -18,9 +19,9 @@ abstract class LogAbstract extends AbstractLogger implements LogHandler
      * @param string $level 日志等级标识
      * @return bool
      */
-    protected static function validLogLevel($level)
+    protected static function validLogLevel(string $level): bool
     {
-        $class = new ReflectionClass('Psr\Log\LogLevel');
+        $class = new ReflectionClass(LogLevel::class);
         $found = false;
         $constants = $class->getReflectionConstants();
         foreach ($constants as $constant) {
@@ -38,7 +39,7 @@ abstract class LogAbstract extends AbstractLogger implements LogHandler
      * @param array  $context 占位符实际内容
      * @return string
      */
-    protected static function interpolate($message, array $context = [])
+    protected static function interpolate(string $message, array $context = []): string
     {
         $replace = [];
         foreach ($context as $key => $val) {
