@@ -14,15 +14,15 @@
     }
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.1.0",
     "psr/log": "^1.1.0"
   },
   "require-dev": {
-    "fize/io": "^4.1.1",
-    "fize/doc": "^1.0.2",
+    "fize/io": "^5.0.0",
+    "fize/doc": "^1.0.3",
     "phpunit/phpunit": "^9.5.0"
   },
   "suggest": {
-    "fize/io": "^4.1.1"
+    "fize/io": "^5.0.0"
   }
 }
