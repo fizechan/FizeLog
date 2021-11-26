@@ -1,6 +1,8 @@
 <?php
 
-use fize\log\Log;
+namespace Tests;
+
+use Fize\Log\Log;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 

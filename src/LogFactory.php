@@ -1,6 +1,6 @@
 <?php
 
-namespace fize\log;
+namespace Fize\Log;
 
 /**
  * 日志工厂类

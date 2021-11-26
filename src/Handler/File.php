@@ -1,9 +1,9 @@
 <?php
 
-namespace fize\log\handler;
+namespace Fize\Log\Handler;
 
-use fize\io\File as FizeFile;
-use fize\log\LogAbstract;
+use Fize\IO\File as FizeFile;
+use Fize\Log\LogAbstract;
 use Psr\Log\InvalidArgumentException;
 
 /**

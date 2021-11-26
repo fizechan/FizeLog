@@ -1,8 +1,9 @@
 <?php
 
+namespace Tests;
 
-use fize\log\LogFactory;
-use fize\log\LogHandler;
+use Fize\Log\LogFactory;
+use Fize\Log\LogHandler;
 use PHPUnit\Framework\TestCase;
 
 class TestLogFactory extends TestCase

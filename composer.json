@@ -10,19 +10,24 @@
   ],
   "autoload": {
     "psr-4": {
-      "fize\\log\\": "src"
+      "Fize\\Log\\": "src"
     }
   },
   "require": {
     "php": ">=7.1.0",
     "psr/log": "^1.1.0"
   },
-  "require-dev": {
-    "fize/io": "^5.0.0",
-    "fize/doc": "^1.0.3",
-    "phpunit/phpunit": "^9.5.0"
-  },
   "suggest": {
     "fize/io": "^5.0.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "fize/io": "^6.0.0",
+    "fize/doc": "^2.0.0",
+    "phpunit/phpunit": "^9.5.0"
   }
 }
