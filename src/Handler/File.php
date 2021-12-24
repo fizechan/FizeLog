@@ -62,6 +62,8 @@ class File extends LogAbstract
             throw new InvalidArgumentException();
         }
 
+        // @todo 内存溢出问题待解决！
+
         $this->logs[] = [
             'level'   => $level,
             'message' => $message,
