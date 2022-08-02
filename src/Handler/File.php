@@ -31,9 +31,10 @@ class File extends LogAbstract
     public function __construct(array $config = [])
     {
         $default_config = [
-            'path'     => './data/log',
-            'file'     => date('Ymd') . '.log',
-            'max_size' => 2 * 1024 * 1024
+            'path'        => './data/log',  // 目录路径
+            'file'        => date('Ymd') . '.log',  // 文件名
+            'max_size'    => 2 * 1024 * 1024,  // 文件打包大小
+            'cache_lines' => 1000,  // 最多缓存行数
         ];
 
         $config = array_merge($default_config, $config);
@@ -62,7 +63,10 @@ class File extends LogAbstract
             throw new InvalidArgumentException();
         }
 
-        // @todo 内存溢出问题待解决！
+        if (count($this->logs) >= $this->config['cache_lines']) {
+            $this->writeToFile();
+            $this->logs = [];
+        }
 
         $this->logs[] = [
             'level'   => $level,

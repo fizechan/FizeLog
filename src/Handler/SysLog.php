@@ -44,6 +44,22 @@ class SysLog extends LogAbstract
     }
 
     /**
+     * 可任意级别记录日志
+     * @param string $level   日志级别
+     * @param string $message 日志内容
+     * @param array  $context 占位符内容
+     */
+    public function log($level, $message, array $context = [])
+    {
+        if (!self::validLogLevel($level)) {
+            throw new InvalidArgumentException();
+        }
+
+        $content = self::interpolate($message, $context);
+        syslog(self::getPriority($level), $content);
+    }
+
+    /**
      * 根据日志等级返回 syslog 使用的等级常量
      * @param string $level 日志等级
      * @return int
@@ -61,21 +77,5 @@ class SysLog extends LogAbstract
             'debug'     => LOG_DEBUG,
         ];
         return $prioritys[$level];
-    }
-
-    /**
-     * 可任意级别记录日志
-     * @param string $level   日志级别
-     * @param string $message 日志内容
-     * @param array  $context 占位符内容
-     */
-    public function log($level, $message, array $context = [])
-    {
-        if (!self::validLogLevel($level)) {
-            throw new InvalidArgumentException();
-        }
-
-        $content = self::interpolate($message, $context);
-        syslog(self::getPriority($level), $content);
     }
 }
