@@ -8,6 +8,7 @@ use Psr\Log\LogLevel;
  * 日志类
  *
  * 遵循PSR3规范，使用静态方法调用
+ * @deprecated 不建议使用
  */
 class Log
 {
@@ -24,7 +25,8 @@ class Log
      */
     public function __construct(string $handler, array $config = [])
     {
-        self::$loger = LogFactory::create($handler, $config);
+        $factory = new LogFactory();
+        self::$loger = $factory->create($handler, $config);
     }
 
     /**

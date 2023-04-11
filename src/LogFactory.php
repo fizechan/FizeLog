@@ -13,7 +13,7 @@ class LogFactory
      * @param array  $config  配置项
      * @return LogHandler
      */
-    public static function create(string $handler, array $config = []): LogHandler
+    public function create(string $handler, array $config = []): LogHandler
     {
         $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler;
         return new $class($config);
