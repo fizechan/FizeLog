@@ -2,7 +2,7 @@
 
 namespace Fize\Log\Handler;
 
-use Fize\Log\LogAbstract;
+use Fize\Log\LoggerAbstract;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -10,7 +10,7 @@ use Psr\Log\InvalidArgumentException;
  *
  * 系统日志形式日志类
  */
-class SysLog extends LogAbstract
+class SysLog extends LoggerAbstract
 {
     /**
      * @var array 配置

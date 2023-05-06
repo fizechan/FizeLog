@@ -3,15 +3,16 @@
 namespace Fize\Log\Handler;
 
 use Fize\IO\File as FizeFile;
-use Fize\Log\LogAbstract;
+use Fize\Log\LoggerAbstract;
 use Psr\Log\InvalidArgumentException;
 
 /**
  * 文件形式
  *
  * 文件形式日志类
+ * @todo 不使用FizeIO
  */
-class File extends LogAbstract
+class File extends LoggerAbstract
 {
 
     /**

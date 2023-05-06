@@ -11,7 +11,7 @@ use ReflectionClass;
  *
  * 提供了实际实现类需要的方法
  */
-abstract class LogAbstract extends AbstractLogger implements LogHandler
+abstract class LoggerAbstract extends AbstractLogger implements LoggerHandler
 {
 
     /**

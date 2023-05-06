@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 /**
  * 日志接口
  */
-interface LogHandler extends LoggerInterface
+interface LoggerHandler extends LoggerInterface
 {
 
     /**

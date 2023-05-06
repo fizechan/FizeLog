@@ -14,7 +14,7 @@ class Log
 {
 
     /**
-     * @var LogHandler
+     * @var LoggerHandler
      */
     protected static $loger;
 
@@ -25,7 +25,7 @@ class Log
      */
     public function __construct(string $handler, array $config = [])
     {
-        $factory = new LogFactory();
+        $factory = new LoggerFactory();
         self::$loger = $factory->create($handler, $config);
     }
 

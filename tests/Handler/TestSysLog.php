@@ -3,7 +3,7 @@
 namespace Tests\Handler;
 
 use Fize\Log\Handler\SysLog;
-use Fize\Log\LogHandler;
+use Fize\Log\LoggerHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 
@@ -13,7 +13,7 @@ class TestSysLog extends TestCase
     public function test__construct()
     {
         $loger = new SysLog();
-        self::assertInstanceOf(LogHandler::class, $loger);
+        self::assertInstanceOf(LoggerHandler::class, $loger);
     }
 
     public function test__destruct()
